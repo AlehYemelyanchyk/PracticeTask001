@@ -18,6 +18,7 @@ public class Main {
 
         boolean continueLoop;
         StartApp();
+        application.createFile();
         application.readFromFile();
         showMenu();
 
@@ -106,11 +107,11 @@ public class Main {
         showMenu();
     }
 
-    public static void showUsers() {
+    private static void showUsers() {
         application.showUsers();
     }
 
-    public static void showMenu() {
+    private static void showMenu() {
         System.out.println("\n"
                 + "Choose an option:\n"
                 + "1. Register a new user;\n"
@@ -119,7 +120,7 @@ public class Main {
                 + "0. Quit.");
     }
 
-    public static void StartApp() {
+    private static void StartApp() {
         System.out.println("\nWelcome to the PracticeTask001!");
     }
 }

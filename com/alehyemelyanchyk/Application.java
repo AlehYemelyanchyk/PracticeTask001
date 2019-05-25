@@ -4,17 +4,21 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Application {
+class Application {
 
     private List<User> userBase;
 
-    private static final String FILE_NAME = "users";
+    private static final String FILE_NAME = "users.txt";
 
-    public Application() {
+    Application() {
         this.userBase = new ArrayList<>();
     }
 
-    public void writeToFile(User user) {
+    void createFile() throws IOException {
+        new File(FILE_NAME).createNewFile();
+    }
+
+    private void writeToFile(User user) {
         PrintWriter printWriter;
         try (FileWriter fileWriter = new FileWriter(FILE_NAME, true)) {
 
@@ -31,7 +35,7 @@ public class Application {
         }
     }
 
-    public String readFromFile() throws IOException {
+    void readFromFile() throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_NAME));
         String c;
         while ((c = bufferedReader.readLine()) != null) {
@@ -39,10 +43,9 @@ public class Application {
             userBase.add(User.createUserNoHash(subStr[0], subStr[1], subStr[2]));
         }
         bufferedReader.close();
-        return c;
     }
 
-    public boolean register(User user) {
+    boolean register(User user) {
         if (findUser(user.getLogin(), user.getEmail())) {
             userBase.add(user);
             writeToFile(user);
@@ -60,11 +63,8 @@ public class Application {
         return true;
     }
 
-    public boolean login(String login, String password) {
-        if (loginCheck(login, password)) {
-            return true;
-        }
-        return false;
+    boolean login(String login, String password) {
+        return loginCheck(login, password);
     }
 
     private boolean loginCheck(String login, String password) {
@@ -77,8 +77,7 @@ public class Application {
     }
 
 
-
-    public void showUsers() {
+    void showUsers() {
         for (User user : userBase) {
             System.out.println(user.toString());
         }
