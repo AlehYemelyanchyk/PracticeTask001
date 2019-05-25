@@ -76,6 +76,8 @@ public class Application {
         return false;
     }
 
+
+
     public void showUsers() {
         for (User user : userBase) {
             System.out.println(user.toString());
